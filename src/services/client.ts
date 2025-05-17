@@ -60,11 +60,11 @@ export class WeatherApiClient {
   }
 
   async confirmSubscription(token: string): Promise<ApiResponse> {
-    return this.request<ApiResponse>(`/confirm?token=${encodeURIComponent(token)}`);
+    return this.request<ApiResponse>(`/confirm/${encodeURIComponent(token)}`);
   }
 
   async unsubscribe(token: string): Promise<ApiResponse> {
-    return this.request<ApiResponse>(`/unsubscribe?token=${encodeURIComponent(token)}`);
+    return this.request<ApiResponse>(`/unsubscribe/${encodeURIComponent(token)}`);
   }
 }
 
