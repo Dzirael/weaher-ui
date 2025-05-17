@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Check, AlertTriangle } from 'lucide-react';
-import { subscribe } from '../services/client';
+import { ApiClient } from '../services/client';
 
 const SubscriptionForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +15,8 @@ const SubscriptionForm: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await subscribe(email, city, frequency);
+      const apiClient = ApiClient();
+      const response = await apiClient.subscribe({email, city, frequency});
       
       if (response.status === 200) {
         setStatus('success');
@@ -33,6 +34,7 @@ const SubscriptionForm: React.FC = () => {
         setMessage('An unexpected error occurred. Please try again later.');
       }
     } catch (error) {
+      console.log(error)
       setStatus('error');
       setMessage('Failed to subscribe. Please try again later.');
     }
@@ -96,7 +98,6 @@ const SubscriptionForm: React.FC = () => {
         >
           <option value="hourly">Hourly</option>
           <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
         </select>
       </div>
       
