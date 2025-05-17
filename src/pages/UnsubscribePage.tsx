@@ -21,15 +21,15 @@ const UnsubscribePage: React.FC = () => {
 
       try {
         const apiClient = ApiClient();
-        const response = await apiClient.unsubscribe(token);
+        const status = await apiClient.unsubscribe(token);
 
-        if (response.status === 200) {
+        if (status === 200) {
           setStatus('success');
           setMessage('You have been unsubscribed successfully.');
-        } else if (response.status === 400) {
+        } else if (status === 400) {
           setStatus('error');
           setMessage('Invalid token. Please check your unsubscribe link.');
-        } else if (response.status === 404) {
+        } else if (status === 404) {
           setStatus('not-found');
           setMessage('Token not found. Your unsubscribe link may have expired.');
         } else {

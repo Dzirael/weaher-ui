@@ -21,15 +21,15 @@ const ConfirmPage: React.FC = () => {
 
       try {
         const apiClient = ApiClient();
-        const response = await apiClient.confirmSubscription(token);
+        const status = await apiClient.confirmSubscription(token);
 
-        if (response.status === 200) {
+        if (status === 200) {
           setStatus('success');
           setMessage('Your subscription has been confirmed successfully!');
-        } else if (response.status === 400) {
+        } else if (status === 400) {
           setStatus('error');
           setMessage('Invalid token. Please check your confirmation link.');
-        } else if (response.status === 404) {
+        } else if (status === 404) {
           setStatus('not-found');
           setMessage('Token not found. Your confirmation link may have expired.');
         } else {

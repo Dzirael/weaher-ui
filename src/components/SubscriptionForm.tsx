@@ -16,17 +16,17 @@ const SubscriptionForm: React.FC = () => {
 
     try {
       const apiClient = ApiClient();
-      const response = await apiClient.subscribe({email, city, frequency});
+      const status = await apiClient.subscribe({email, city, frequency});
       
-      if (response.status === 200) {
+      if (status === 200) {
         setStatus('success');
         setMessage('Subscription successful. Please check your email for confirmation.');
         setEmail('');
         setCity('');
-      } else if (response.status === 400) {
+      } else if (status === 400) {
         setStatus('error');
         setMessage('Invalid input. Please check your information and try again.');
-      } else if (response.status === 409) {
+      } else if (status === 409) {
         setStatus('error');
         setMessage('This email is already subscribed. Please use a different email.');
       } else {

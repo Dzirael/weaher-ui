@@ -43,28 +43,34 @@ export class WeatherApiClient {
     return this.request<WeatherData>(`/weather?city=${encodeURIComponent(city)}`);
   }
 
-  async subscribe(params: SubscribeParams): Promise<ApiResponse> {
+  async subscribe(params: SubscribeParams): Promise<number> {
     const body = new URLSearchParams({
       email: params.email,
       city: params.city,
       frequency: params.frequency,
     }).toString();
 
-    return this.request<ApiResponse>('/subscribe', {
+    const response =  await this.request<ApiResponse>('/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body,
     });
+
+    return response.status
   }
 
-  async confirmSubscription(token: string): Promise<ApiResponse> {
-    return this.request<ApiResponse>(`/confirm/${encodeURIComponent(token)}`);
+  async confirmSubscription(token: string): Promise<number> {
+    const url = `${this.baseUrl}/confirm/${encodeURIComponent(token)}`;
+    const response = await fetch(url);
+    return response.status;
   }
 
-  async unsubscribe(token: string): Promise<ApiResponse> {
-    return this.request<ApiResponse>(`/unsubscribe/${encodeURIComponent(token)}`);
+  async unsubscribe(token: string): Promise<number>  {
+    const url = `${this.baseUrl}/unsubscribe/${encodeURIComponent(token)}`;
+    const response = await fetch(url);
+    return response.status;
   }
 }
 
