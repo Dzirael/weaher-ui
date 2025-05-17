@@ -1,10 +1,5 @@
 import { WeatherData } from '../types';
 
-interface ApiResponse {
-  status: number;
-  message: string;
-}
-
 interface SubscribeParams {
   email: string;
   city: string;
@@ -50,7 +45,9 @@ export class WeatherApiClient {
       frequency: params.frequency,
     }).toString();
 
-    const response =  await this.request<ApiResponse>('/subscribe', {
+    const url = `${this.baseUrl}/subscribe`;
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
